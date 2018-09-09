@@ -1,0 +1,170 @@
+<!--__author__ = "wyb"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todo列表页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<!--
+    <div>
+        <form action="{{ url_for(".add") }}" method="post">
+            <input type="text" name="title">
+            <input type="text" name="author_id" value="{{ author.id }}" class="hidden">
+            <button type="submit">添加</button>
+        </form>
+
+        <div class="todo-list">
+            {% for todo in todos %}
+                <div class="todo-item">
+                    {{ todo.title }} @{{ todo.transfer_time(todo.ct) }}
+                    <a href="{{ url_for(".delete", todo_id=todo.id) }}">删除</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+-->
+
+
+
+
+<!-- 页面主体内容 -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- 侧边栏 -->
+        <!--
+             <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+            </div>
+         -->
+        <div class="col-md-12 main text-center">
+            <h1 class="page-header">备忘录</h1>
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">备忘录列表 <i class="fa fa-thumb-tack pull-right"></i></div>
+                <div class="panel-body">
+                    <div class="row" style="margin-bottom: 15px">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">搜索(未开发)</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-md-4 -->
+                        <div class="col-md-1 pull-right">
+                            <button class="btn btn-success" data-toggle="modal" data-target="#myModal">添加</button>
+                        </div>
+
+                    </div><!-- /.row -->
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>备忘内容</th>
+                            <th>发布时间</th>
+                            <th>是否完成</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="todo-list" class="todo-list">
+                        {% for todo in todos %}
+                            <tr>
+                                <td class="todo-content">{{ todo.title }}</td>
+                                <td class="todo-ct">{{ todo.transfer_time(todo.ct) }}</td>
+                                <td class="todo-complete">{{ todo.is_completed() }}</td>
+                                <td>
+                                    <a class="btn btn-danger" href="{{ url_for(".delete", todo_id=todo.id) }}">删除</a>
+                                    <a class="btn btn-info" href="">完成(未完成)</a>
+                                    <button class="btn btn-success button-edit" data-toggle="modal"
+                                            data-target="#myModal2">编辑(未完成)
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 添加的弹出框 -->
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">添加备忘</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="{{ url_for(".add") }}" method="post">
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">备忘内容</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputName" placeholder="todo content"
+                                   name="title">
+                            <input type="text" name="author_id" value="{{ author.id }}" class="hidden">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <!-- <button type="button" class="btn btn-primary">保存</button> -->
+                        <button type="submit" class="btn btn-primary" id="button-save">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 编辑的弹出框 -->
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">编辑备忘信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="{{ url_for(".update") }}" method="post">
+                    <div class="form-group">
+                        <label for="inputName2" class="col-sm-2 control-label">备忘内容</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="author_id" value="{{ author.id }}" class="hidden">
+                            <input type="text" class="form-control" id="inputName2" placeholder="edit todo content"
+                                   name="title">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary" id="button-update">更新</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- 引入jQuery -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="js/base.js"></script>
+
+
+</body>
+</html>

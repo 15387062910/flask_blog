@@ -1,0 +1,56 @@
+<!--__author__ = "wyb"-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客首页</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .blog-list{
+            margin: 15px 0;
+            padding: 18px;
+            border: 1px solid slateblue;
+            min-height: 666px;
+        }
+        .blog-item{
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid red
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面顶部 -->
+    {% include 'nav-top.html' %}
+    <div class="container">
+        <!-- 博客 -->
+        <div class="blog-list">
+            <h3>博客列表</h3>
+            {% for b in blogs %}
+                <div class="blog-item">
+                    <div class="blog-main">
+                        <a href="{{ url_for(".view", blog_id=b.id) }}">
+                            {{ b.title }}
+                        </a>
+                    </div>
+                    <div class="blog-attach">
+                        @ {{ b.transfer_time(b.create_time) }} by {{ b.author_name }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <!-- 引入jQuery -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="js/base.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 2,
+    "content": "测试评论",
+    "create_time": 1536494321,
+    "author_id": 5,
+    "blog_id": 1,
+    "author_name": "123"
+  },
+  {
+    "id": 3,
+    "content": "测试评论2",
+    "create_time": 1536494395,
+    "author_id": 5,
+    "blog_id": 1,
+    "author_name": "123"
+  },
+  {
+    "id": 4,
+    "content": "你好我是wyb",
+    "create_time": 1536494482,
+    "author_id": 4,
+    "blog_id": 2,
+    "author_name": "wyb"
+  },
+  {
+    "id": 5,
+    "content": "hello world!",
+    "create_time": 1536494490,
+    "author_id": 4,
+    "blog_id": 2,
+    "author_name": "wyb"
+  }
+]

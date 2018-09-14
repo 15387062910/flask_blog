@@ -34,18 +34,46 @@ class User(Model):
     def register(cls, form):
         name = form.get('username', '')
         pwd = form.get('password', '')
-        if len(name) > 2 and User.find_by(username=name) is None:
+        user = User.find_by(username=name)
+        # 返回给views的处理结果
+        res = {
+            "error": 0,
+            "message": "",
+            "user": ""
+        }
+        if not name:
+            res["error"] = 1
+            res["message"] = "用户名不能为空!"
+            return res
+        elif not pwd:
+            res["error"] = 1
+            res["message"] = "密码不能为空!"
+            return res
+        elif user is not None:
+            res["error"] = 1
+            res["message"] = "用户名已存在!"
+            return res
+        elif len(name) <= 2:
+            res["error"] = 1
+            res["message"] = "用户名不能少于三位!"
+            return res
+        elif len(pwd) <= 2:
+            res["error"] = 1
+            res["message"] = "密码不能少于三位!"
+            return res
+        else:
             u = User.new(form)
             u.password = u.salted_password(pwd)
             u.save()
-            return u
-        else:
-            return None
+            res["message"] = "成功注册!"
+            res["user"] = u
+            return res
 
     @classmethod
     def validate_login(cls, form):
         u = User(form)
         user = User.find_by(username=u.username)
+        # todo 改写登陆验证 类似于注册和改密码那样写
         if user is not None and user.password == u.salted_password(u.password):
             return user
         else:

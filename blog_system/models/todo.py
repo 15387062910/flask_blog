@@ -18,12 +18,11 @@ class Todo(Model):
     @classmethod
     def new(cls, form):
         """
-        创建并保存一个 todo 并且返回它
-        Todo.new({'title': '吃饭'})
-        :param form: 一个字典 包含了 todo 的数据
-        :return: 创建的 todo 实例
+        创建并保存一个todo 并且返回它
+        :param form: 一个字典 包含了todo 的数据 form -> {'title': '吃饭'}
+        :return: 创建的todo 实例
         """
-        # 下面一行相当于 t = Todo(form)
+        # 下面一行相当于用form去实例化一个对象
         t = cls(form)
         t.save()
         return t
@@ -46,8 +45,8 @@ class Todo(Model):
     def complete(cls, id, completed=True):
         """
         用法很方便
-        Todo.complete(1)
-        Todo.complete(2, False)
+        xxx.complete(1)
+        xxx.complete(2, False)
         """
         t = cls.find(id)
         t.completed = completed

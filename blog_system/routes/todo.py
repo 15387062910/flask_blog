@@ -19,7 +19,7 @@ def index():
     now_user = current_user()
     # 查找登陆用户的所有的todo 并返回
     todo_list = Todo.find_all(author_id=now_user.id)
-    return render_template('todo/todo_index.html', todos=todo_list, author=now_user)
+    return render_template('todo/todo_index.html', todos=todo_list, now_user=now_user)
 
 
 @main.route('/add', methods=['POST', 'GET'])

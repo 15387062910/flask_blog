@@ -8,28 +8,6 @@
 </head>
 <body>
 
-<!--
-    <div>
-        <form action="{{ url_for(".add") }}" method="post">
-            <input type="text" name="title">
-            <input type="text" name="author_id" value="{{ author.id }}" class="hidden">
-            <button type="submit">添加</button>
-        </form>
-
-        <div class="todo-list">
-            {% for todo in todos %}
-                <div class="todo-item">
-                    {{ todo.title }} @{{ todo.transfer_time(todo.ct) }}
-                    <a href="{{ url_for(".delete", todo_id=todo.id) }}">删除</a>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
--->
-
-
-
-
 <!-- 页面主体内容 -->
 <div class="container-fluid">
     <div class="row">
@@ -44,7 +22,7 @@
             </div>
          -->
         <div class="col-md-12 main text-center">
-            <h1 class="page-header">备忘录</h1>
+            <h1 class="page-header">{{ now_user.username }}的备忘录</h1>
             <div class="panel panel-primary">
                 <!-- Default panel contents -->
                 <div class="panel-heading">备忘录列表 <i class="fa fa-thumb-tack pull-right"></i></div>
@@ -114,7 +92,7 @@
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputName" placeholder="todo content"
                                    name="title">
-                            <input type="text" name="author_id" value="{{ author.id }}" class="hidden">
+                            <input type="text" name="author_id" value="{{ now_user.id }}" class="hidden">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -141,7 +119,7 @@
                     <div class="form-group">
                         <label for="inputName2" class="col-sm-2 control-label">备忘内容</label>
                         <div class="col-sm-10">
-                            <input type="text" name="author_id" value="{{ author.id }}" class="hidden">
+                            <input type="text" name="author_id" value="{{ now_user.id }}" class="hidden">
                             <input type="text" class="form-control" id="inputName2" placeholder="edit todo content"
                                    name="title">
                         </div>

@@ -35,14 +35,23 @@ def login():
 @main.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
-        return render_template("user/register.html")
-    user = User.register(request.form)
-    if user:
-        # 设置session
-        session["user_id"] = user.id
-    else:
-        return "用户名已存在!"
-    return redirect(url_for("blog.index"))
+        # 取错误信息
+        error_message = get_flashed_messages(category_filter=["register_message"])
+        if not error_message:
+            error_message = ""
+        else:
+            error_message = "错误信息: " + error_message[0]
+        return render_template("user/register.html", error_message=error_message)
+    status = User.register(request.form)
+    # 设置错误信息并重定向
+    if status["error"]:
+        flash(status["message"], category="register_message")
+        return redirect(url_for(".register"))
+    # 设置session
+    user = status["user"]
+    session["user_id"] = user.id
+    return status["message"]
+    # return redirect(url_for("blog.index"))
 
 
 @main.route("/logout", methods=['POST'])
@@ -52,7 +61,6 @@ def log_out():
     return redirect(url_for("blog.index"))
 
 
-# 进阶功能: 更改密码
 @main.route("/changePwd", methods=['GET', 'POST'], endpoint="change")
 def find_pwd():
     if request.method == "GET":

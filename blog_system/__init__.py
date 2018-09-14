@@ -13,7 +13,7 @@ app.secret_key = 'test for good'
 
 
 # 注册蓝图
-app.register_blueprint(user_route)                                 # 基础路由: 登陆注册注销
+app.register_blueprint(user_route)                                 # 基础路由: 登陆注册注销改密
 app.register_blueprint(blog_route, url_prefix='/blog')             # 博客路由
 app.register_blueprint(todo_route, url_prefix='/todo')             # todo路由
 

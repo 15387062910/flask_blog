@@ -1,4 +1,5 @@
 from ..models import Model
+import hashlib
 
 
 class User(Model):
@@ -6,20 +7,22 @@ class User(Model):
     User 是一个保存用户数据的 model
     现在只有两个属性 username 和 password
     """
+
     def __init__(self, form):
         self.id = form.get('id', None)
         self.username = form.get('username', '')
         self.password = form.get('password', '')
 
-    def salted_password(self, password, salt='$!@><?>HUI&DWQa`'):
-        import hashlib
+    @staticmethod
+    def salted_password(password, salt='$!@><?>HUI&DWQa`'):
         def sha256(ascii_str):
             return hashlib.sha256(ascii_str.encode('ascii')).hexdigest()
         hash1 = sha256(password)
         hash2 = sha256(hash1 + salt)
         return hash2
 
-    def hashed_password(self, pwd):
+    @staticmethod
+    def hashed_password(pwd):
         import hashlib
         # 用 ascii 编码转换成 bytes 对象
         p = pwd.encode('ascii')
@@ -47,3 +50,45 @@ class User(Model):
             return user
         else:
             return None
+
+    @classmethod
+    def change_pwd(cls, form):
+        username = form.get("username")
+        old_pwd = form.get("password")
+        new_pwd = form.get("password2")
+        user = User.find_by(username=username)
+        # 返回给views的处理结果
+        res = {
+            "error": 0,
+            "message": ""
+        }
+
+        if not username:
+            res["error"] = 1
+            res["message"] = "用户名不能为空!"
+            return res
+        elif not old_pwd:
+            res["error"] = 1
+            res["message"] = "旧密码不能为空!"
+            return res
+        elif not new_pwd:
+            res["error"] = 1
+            res["message"] = "新密码不能为空!"
+            return res
+        elif user is None:
+            res["error"] = 1
+            res["message"] = "用户名不存在!"
+            return res
+        elif user.password != User.salted_password(old_pwd):
+            res["error"] = 1
+            res["message"] = "旧密码错误!"
+            return res
+        elif old_pwd == new_pwd:
+            res["error"] = 1
+            res["message"] = "新密码不能和旧密码相同"
+            return res
+        else:
+            user.password = User.salted_password(new_pwd)
+            user.save()
+            res["message"] = "修改密码成功!"
+            return res

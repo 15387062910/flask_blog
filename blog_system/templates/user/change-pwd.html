@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>用户登陆</title>
+    <title>修改密码</title>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,9 +16,6 @@
         #form-box{
             margin-top: 199px;
         }
-        #changePwd{
-            padding-right: 10px;
-        }
     </style>
 </head>
 <body>
@@ -27,8 +24,8 @@
     <div class="row">
         <div class="col-md-4 col-lg-3 col-md-offset-4">
             <div id="form-box">
-                <h3 class="text-center">请登录</h3>
-                <form class="form-horizontal" method="post" action="{{ url_for("session.login") }}">
+                <h3 class="text-center">修改密码</h3>
+                <form class="form-horizontal" method="post" action="{{ url_for("session.change") }}">
                     <div class="form-group">
                         <label for="username" class="col-sm-3 control-label">用户名</label>
                         <div class="col-sm-8">
@@ -36,29 +33,28 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="col-sm-3 control-label">密码</label>
+                        <label for="password" class="col-sm-3 control-label">旧密码</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="输入密码">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="输入旧密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="col-sm-3 control-label">新密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="password2" name="password2" placeholder="输入新密码">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-8">
-                            <div class="checkbox">
-                                <label>
-                                    <input id="remember-me" type="checkbox" value="remember-me"> 记住我
-                                </label>
-                                <a class="pull-right" id="changePwd" href="{{ url_for("session.login") }}">修改密码(开发中)</a>
-                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">修改</button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-4">
-                            <button type="submit" class="btn btn-primary btn-block">登录</button>
-                        </div>
-                        <div class="col-sm-4">
-                            <a href="{{ url_for("session.register") }}" class="btn btn-primary btn-block">注册</a>
+                        <div class="col-sm-offset-3 col-sm-8 text-center">
+                            <p class="text-danger">{{ error_message }}</p>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>

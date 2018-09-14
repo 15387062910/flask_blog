@@ -1,0 +1,23 @@
+21:08:15 kwargs,  {'id': 0} <class 'dict'>
+21:08:15 kwargs,  {'id': 0} <class 'dict'>
+21:22:47 kwargs,  {'id': 0} <class 'dict'>
+21:22:47 kwargs,  {'id': 0} <class 'dict'>
+21:48:38 kwargs,  {'username': ''} <class 'dict'>
+21:48:49 kwargs,  {'username': ''} <class 'dict'>
+21:49:30 kwargs,  {'username': ''} <class 'dict'>
+21:51:02 kwargs,  {'username': ''} <class 'dict'>
+21:51:39 kwargs,  {'username': ''} <class 'dict'>
+21:52:29 kwargs,  {'username': ''} <class 'dict'>
+21:52:38 kwargs,  {'username': ''} <class 'dict'>
+21:52:54 kwargs,  {'username': ''} <class 'dict'>
+21:53:05 kwargs,  {'username': ''} <class 'dict'>
+21:55:32 kwargs,  {'username': ''} <class 'dict'>
+21:57:47 kwargs,  {'username': '123'} <class 'dict'>
+21:57:47 debug 4
+21:59:04 kwargs,  {'username': '123'} <class 'dict'>
+21:59:17 kwargs,  {'username': '123'} <class 'dict'>
+21:59:22 kwargs,  {'username': '123'} <class 'dict'>
+22:01:38 kwargs,  {'username': '123'} <class 'dict'>
+22:01:38 debug 4
+22:01:48 kwargs,  {'username': '123'} <class 'dict'>
+22:02:10 kwargs,  {'username': '123'} <class 'dict'>
